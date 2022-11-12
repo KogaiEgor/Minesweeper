@@ -9,12 +9,16 @@ using System.Windows.Forms;
 
 namespace Minesweeper.Controllers
 {
-    public static class MapController
+    public class MapController
     {
-        public const int mapSize = 8;
+        public static int mapSize;
+        public static int numsofbomb_low;
+        public static int numsofbomb_high;
+
+
         public const int cellSize = 50;
 
-        private static int currentPictureToSet = 0;
+        public static int currentPictureToSet = 0;
 
         public static int[,] map = new int[mapSize, mapSize];
 
@@ -22,19 +26,33 @@ namespace Minesweeper.Controllers
 
         public static Image spriteSet;
 
-        private static bool isFirstStep;
+        public static bool isFirstStep;
 
-        private static Point firstCoord;
+        public static Point firstCoord;
 
         public static Form form;
 
-        private static void ConfigureMapSize(Form current)
+        public MapController()
         {
-            current.Width = 640;
-            current.Height = 480;
+
         }
 
-        private static void InitMap()
+        public MapController(int map_size, int bomb_low, int bomb_high)
+        {
+            mapSize = map_size;
+            numsofbomb_low = bomb_low;
+            numsofbomb_high = bomb_high;
+            map = new int[mapSize, mapSize];
+            buttons = new Button[mapSize, mapSize];
+        }
+
+        public static void ConfigureMapSize(Form current)
+        {
+            current.Width = mapSize * cellSize + 220;
+            current.Height = (mapSize + 1) * cellSize;
+        }
+
+        public static void InitMap()
         {
             for (int i = 0; i < mapSize; i++)
             {
@@ -50,16 +68,16 @@ namespace Minesweeper.Controllers
             form = current;
             currentPictureToSet = 0;
             isFirstStep = true;
-            spriteSet = new Bitmap(@"..\..\..\Sprites\\tiles.png");
+            spriteSet = new Bitmap("..\\..\\..\\Sprites\\tiles.png");
             ConfigureMapSize(current);
             InitMap();
             InitButtons(current);
         }
 
-        private static void InitButtons(Form current)
+        public static void InitButtons(Form current)
         {
             for (int i = 0; i < mapSize; i++)
-            {   
+            {
                 for (int j = 0; j < mapSize; j++)
                 {
                     Button button = new Button();
@@ -73,7 +91,7 @@ namespace Minesweeper.Controllers
             }
         }
 
-        private static void OnButtonPressedMouse(object sender, MouseEventArgs e)
+        public static void OnButtonPressedMouse(object sender, MouseEventArgs e)
         {
             Button pressedButton = sender as Button;
             switch (e.Button.ToString())
@@ -87,7 +105,7 @@ namespace Minesweeper.Controllers
             }
         }
 
-        private static void OnRightButtonPressed(Button pressedButton)
+        public static void OnRightButtonPressed(Button pressedButton)
         {
             currentPictureToSet++;
             currentPictureToSet %= 3;
@@ -111,7 +129,7 @@ namespace Minesweeper.Controllers
             pressedButton.Image = FindNeededImage(posX, posY);
         }
 
-        private static void OnLeftButtonPressed(Button pressedButton)
+        public static void OnLeftButtonPressed(Button pressedButton)
         {
             pressedButton.Enabled = false;
             int iButton = pressedButton.Location.Y / cellSize;
@@ -134,7 +152,7 @@ namespace Minesweeper.Controllers
             }
         }
 
-        private static void ShowAllBombs(int iBomb, int jBomb)
+        public static void ShowAllBombs(int iBomb, int jBomb)
         {
             for (int i = 0; i < mapSize; i++)
             {
@@ -160,10 +178,10 @@ namespace Minesweeper.Controllers
             return image;
         }
 
-        private static void SeedMap()
+        public static void SeedMap()
         {
             Random r = new Random();
-            int number = r.Next(7, 15);
+            int number = r.Next(numsofbomb_low, numsofbomb_high);
 
             for (int i = 0; i < number; i++)
             {
@@ -179,7 +197,7 @@ namespace Minesweeper.Controllers
             }
         }
 
-        private static void CountCellBomb()
+        public static void CountCellBomb()
         {
             for (int i = 0; i < mapSize; i++)
             {
@@ -201,7 +219,7 @@ namespace Minesweeper.Controllers
             }
         }
 
-        private static void OpenCell(int i, int j)
+        public static void OpenCell(int i, int j)
         {
             buttons[i, j].Enabled = false;
 
@@ -240,7 +258,7 @@ namespace Minesweeper.Controllers
             }
         }
 
-        private static void OpenCells(int i, int j)
+        public static void OpenCells(int i, int j)
         {
             OpenCell(i, j);
 
@@ -263,7 +281,7 @@ namespace Minesweeper.Controllers
             }
         }
 
-        private static bool IsInBorder(int i, int j)
+        public static bool IsInBorder(int i, int j)
         {
             if (i < 0 || j < 0 || j > mapSize - 1 || i > mapSize - 1)
             {
