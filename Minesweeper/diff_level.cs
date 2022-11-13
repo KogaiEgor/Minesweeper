@@ -17,7 +17,7 @@ namespace Minesweeper
             InitializeComponent();
         }
 
-        private void Back_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
             Hide();
             main_menu menu = new main_menu();
@@ -25,7 +25,15 @@ namespace Minesweeper
             Close();
         }
 
-        private void Light_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Hide();
+            light game = new light();
+            game.ShowDialog();
+            Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
         {
             Hide();
             middle game = new middle();
@@ -33,18 +41,10 @@ namespace Minesweeper
             Close();
         }
 
-        private void Middle_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
             Hide();
-            middle game = new middle();
-            game.ShowDialog();
-            Close();
-        }
-
-        private void Hard_Click(object sender, EventArgs e)
-        {
-            Hide();
-            middle game = new middle();
+            hard game = new hard();
             game.ShowDialog();
             Close();
         }

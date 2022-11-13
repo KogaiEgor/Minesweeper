@@ -4,6 +4,12 @@
     <Compile Update="diff_level.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="hard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="light.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="middle.cs">
       <SubType>Form</SubType>
     </Compile>

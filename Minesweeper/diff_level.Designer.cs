@@ -109,10 +109,10 @@
 
         #endregion
 
-        private Button Light;
-        private Button Middle;
-        private Button Hard;
-        private Button Back;
+        private Button button1;
+        private Button button2;
+        private Button button3;
+        private Button button4;
         private Label label1;
     }
 }
