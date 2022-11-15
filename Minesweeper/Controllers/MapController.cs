@@ -14,7 +14,7 @@ namespace Minesweeper.Controllers
         public static int mapSize;
         public static int numsofbomb_low;
         public static int numsofbomb_high;
-
+        public static int numsofbomb;
 
         public const int cellSize = 50;
 
@@ -150,6 +150,48 @@ namespace Minesweeper.Controllers
                 form.Controls.Clear();
                 Init(form);
             }
+
+            if (IsEnd() == true)
+            {
+                ShowAllBombs(iButton, jButton);
+                MessageBox.Show("Победа!");
+                form.Controls.Clear();
+                Init(form);
+            }
+        }
+
+        public static bool IsEnd()
+        {
+            int countbombs = 0, countbuttons = 0;
+            for (int i = 0; i < mapSize; i++)
+            {
+                for (int j = 0; j < mapSize; j++)
+                {
+                    if (buttons[i, j].Enabled)
+                    {
+                        countbuttons++;
+                        if (map[i, j] == -1)
+                        {
+                            countbombs++;
+                            if (countbuttons == countbombs && countbombs == numsofbomb)
+                            {
+                                return true;
+                            } else if (i == mapSize && j == mapSize)
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    } else
+                    {
+                        continue;
+                    }
+                }
+            }
+            return false;
         }
 
         public static void ShowAllBombs(int iBomb, int jBomb)
@@ -182,6 +224,7 @@ namespace Minesweeper.Controllers
         {
             Random r = new Random();
             int number = r.Next(numsofbomb_low, numsofbomb_high);
+            numsofbomb = number;
 
             for (int i = 0; i < number; i++)
             {
