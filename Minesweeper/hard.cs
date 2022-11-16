@@ -16,8 +16,8 @@ namespace Minesweeper
         public hard()
         {
             InitializeComponent();
-            MapController hard = new MapController(12, 14, 18);
-            MapController.Init(this);
+            Game hard = new Game(12, 14, 18);
+            Game.Init(this);
         }
     }
 }

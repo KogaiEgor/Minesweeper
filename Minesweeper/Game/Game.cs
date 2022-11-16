@@ -5,16 +5,23 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace Minesweeper.Controllers
 {
-    public class MapController
+    public class Game
     {
         public static int mapSize;
         public static int numsofbomb_low;
         public static int numsofbomb_high;
         public static int numsofbomb;
+
+        static int m = 0, s = 0;
+
+        static Label label = new Label();
+
+        static System.Windows.Forms.Timer timer;
 
         public const int cellSize = 50;
 
@@ -31,13 +38,12 @@ namespace Minesweeper.Controllers
         public static Point firstCoord;
 
         public static Form form;
-
-        public MapController()
+        public Game()
         {
 
         }
 
-        public MapController(int map_size, int bomb_low, int bomb_high)
+        public Game(int map_size, int bomb_low, int bomb_high)
         {
             mapSize = map_size;
             numsofbomb_low = bomb_low;
@@ -68,10 +74,11 @@ namespace Minesweeper.Controllers
             form = current;
             currentPictureToSet = 0;
             isFirstStep = true;
-            spriteSet = new Bitmap("..\\..\\..\\Sprites\\tiles.png");
+            spriteSet = new Bitmap("..\\..\\..\\Sprites\\buttons.png");
             ConfigureMapSize(current);
             InitMap();
             InitButtons(current);
+            InitTimer(current);
         }
 
         public static void InitButtons(Form current)
@@ -89,6 +96,32 @@ namespace Minesweeper.Controllers
                     buttons[i, j] = button;
                 }
             }
+        }
+
+        public static void InitTimer(Form current)
+        {
+            timer = new System.Windows.Forms.Timer();
+            label.Location = new Point(mapSize * cellSize + 40, mapSize * cellSize / 2 - 10);
+            label.Size = new Size(cellSize + 37, 40);
+            label.Text = string.Format("{0}:{1}", m.ToString().PadLeft(2, '0'), s.ToString().PadLeft(2, '0'));
+            label.Font = new Font("Calibri", 22);
+
+            timer.Tick += new EventHandler(Start_timer);
+            timer.Interval = 1000;   
+            timer.Enabled = true;
+
+            current.Controls.Add(label);
+        }
+            
+        private static void Start_timer(object sender, EventArgs e)
+        {
+            s++;
+            if (s >= 60)
+            {
+                m++;
+                s = 0;
+            }
+            label.Text = string.Format("{0}:{1}", m.ToString().PadLeft(2, '0'), s.ToString().PadLeft(2, '0'));
         }
 
         public static void OnButtonPressedMouse(object sender, MouseEventArgs e)
@@ -136,6 +169,7 @@ namespace Minesweeper.Controllers
             int jButton = pressedButton.Location.X / cellSize;
             if (isFirstStep)
             {
+                timer.Start();
                 firstCoord = new Point(jButton, iButton);
                 SeedMap();
                 CountCellBomb();
@@ -145,17 +179,23 @@ namespace Minesweeper.Controllers
 
             if (map[iButton, jButton] == -1)
             {
+                timer.Stop();
                 ShowAllBombs(iButton, jButton);
                 MessageBox.Show("Поражение!");
                 form.Controls.Clear();
+                m = 0;
+                s = 0;
                 Init(form);
             }
 
             if (IsEnd() == true)
             {
+                timer.Stop();
                 ShowAllBombs(iButton, jButton);
                 MessageBox.Show("Победа!");
                 form.Controls.Clear();
+                m = 0;
+                s = 0;
                 Init(form);
             }
         }
@@ -332,5 +372,7 @@ namespace Minesweeper.Controllers
             }
             return true;
         }
+
+        
     }
 }

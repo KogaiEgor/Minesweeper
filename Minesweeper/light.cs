@@ -16,8 +16,8 @@ namespace Minesweeper
         public light()
         {
             InitializeComponent();
-            MapController light = new MapController(6, 6, 8);
-            MapController.Init(this);
+            Game light = new Game(6, 6, 8);
+            Game.Init(this);
         }
     }
 }

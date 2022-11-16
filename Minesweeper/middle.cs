@@ -7,8 +7,8 @@ namespace Minesweeper
         public middle()
         {
             InitializeComponent();
-            MapController middle = new MapController(8, 10, 12);
-            MapController.Init(this);
+            Game middle = new Game(8, 10, 12);
+            Game.Init(this);
         }
     }
 }
