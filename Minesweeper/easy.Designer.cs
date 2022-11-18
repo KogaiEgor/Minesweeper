@@ -1,6 +1,6 @@
 ﻿namespace Minesweeper
 {
-    partial class light
+    partial class easy
     {
         /// <summary>
         /// Required designer variable.

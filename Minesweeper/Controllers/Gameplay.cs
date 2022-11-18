@@ -7,15 +7,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using Minesweeper;
 
 namespace Minesweeper.Controllers
 {
-    public class Game
+    public class Gameplay
     {
         public static int mapSize;
+
         public static int numsofbomb_low;
+
         public static int numsofbomb_high;
+
         public static int numsofbomb;
+
+        public static int time_sum;
+
+        public static string time_str;
+
+        public static string difflvl;
 
         static int m = 0, s = 0;
 
@@ -38,16 +48,17 @@ namespace Minesweeper.Controllers
         public static Point firstCoord;
 
         public static Form form;
-        public Game()
+        public Gameplay()
         {
 
         }
 
-        public Game(int map_size, int bomb_low, int bomb_high)
+        public Gameplay(int map_size, int bomb_low, int bomb_high, string _difflvl)
         {
             mapSize = map_size;
             numsofbomb_low = bomb_low;
             numsofbomb_high = bomb_high;
+            difflvl = _difflvl;
             map = new int[mapSize, mapSize];
             buttons = new Button[mapSize, mapSize];
         }
@@ -182,22 +193,43 @@ namespace Minesweeper.Controllers
                 timer.Stop();
                 ShowAllBombs(iButton, jButton);
                 MessageBox.Show("Поражение!");
+                form.Hide();
                 form.Controls.Clear();
+                result result = new result();
+                result.label1.Text = "Ваше время: " + string.Format("{0}:{1}", m.ToString().PadLeft(2, '0'), s.ToString().PadLeft(2, '0'));
+                result.label2.Text = "Поражение";
+                result.difflvl = difflvl;
+                result.Init();
                 m = 0;
                 s = 0;
-                Init(form);
+                form.Close();
+                result.ShowDialog();
             }
-
-            if (IsEnd() == true)
+            else if (IsEnd() == true)
             {
-                timer.Stop();
-                ShowAllBombs(iButton, jButton);
-                MessageBox.Show("Победа!");
-                form.Controls.Clear();
-                m = 0;
-                s = 0;
-                Init(form);
+                Victory(iButton, jButton);
             }
+        }
+
+        private static void Victory(int iButton, int jButton)
+        {
+            timer.Stop();
+            ShowAllBombs(iButton, jButton);
+            time_sum = m * 60 + s;
+            MessageBox.Show("Победа!");
+            form.Hide();
+            form.Controls.Clear();
+            result result = new result();
+            result.label1.Text = "Ваше время: " + string.Format("{0}:{1}", m.ToString().PadLeft(2, '0'), s.ToString().PadLeft(2, '0'));
+            time_str = string.Format("{0}:{1}", m.ToString().PadLeft(2, '0'), s.ToString().PadLeft(2, '0'));
+            result.label2.Text = "Победа";
+            result.difflvl = difflvl;
+            result.time = time_sum;
+            result.Init();
+            m = 0;
+            s = 0;
+            form.Close();
+            result.ShowDialog();
         }
 
         public static bool IsEnd()

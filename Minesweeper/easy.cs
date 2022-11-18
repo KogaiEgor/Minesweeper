@@ -11,13 +11,13 @@ using System.Windows.Forms;
 
 namespace Minesweeper
 {
-    public partial class light : Form
+    public partial class easy : Form
     {
-        public light()
+        public easy()
         {
             InitializeComponent();
-            Game light = new Game(6, 6, 8);
-            Game.Init(this);
+            Gameplay light = new Gameplay(6, 4, 6, "Easy");
+            Gameplay.Init(this);
         }
     }
 }

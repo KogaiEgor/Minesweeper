@@ -28,25 +28,26 @@ namespace Minesweeper
         private void button1_Click(object sender, EventArgs e)
         {
             Hide();
-            light game = new light();
-            game.ShowDialog();
+            easy game = new easy();
             Close();
+            game.ShowDialog();
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             Hide();
             middle game = new middle();
-            game.ShowDialog();
             Close();
+            game.ShowDialog();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             Hide();
             hard game = new hard();
-            game.ShowDialog();
             Close();
+            game.ShowDialog();
         }
     }
 }

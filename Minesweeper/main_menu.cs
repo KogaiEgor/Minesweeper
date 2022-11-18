@@ -31,6 +31,9 @@ namespace Minesweeper
 
         private void button3_Click(object sender, EventArgs e)
         {
+            Hide();
+            RecordsForm records = new RecordsForm();
+            records.ShowDialog();   
             Close();
         }
     }

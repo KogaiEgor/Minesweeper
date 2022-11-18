@@ -36,4 +36,6 @@ C:\stud\final4\Minesweeper\Minesweeper\obj\Debug\net6.0-windows\Minesweeper.main
 C:\stud\final4\Minesweeper\Minesweeper\obj\Debug\net6.0-windows\Minesweeper.middle.resources
 C:\stud\final4\Minesweeper\Minesweeper\obj\Debug\net6.0-windows\Minesweeper.diff_level.resources
 C:\stud\final4\Minesweeper\Minesweeper\obj\Debug\net6.0-windows\Minesweeper.hard.resources
-C:\stud\final4\Minesweeper\Minesweeper\obj\Debug\net6.0-windows\Minesweeper.light.resources
+C:\stud\final4\Minesweeper\Minesweeper\obj\Debug\net6.0-windows\Minesweeper.easy.resources
+C:\stud\final4\Minesweeper\Minesweeper\obj\Debug\net6.0-windows\Minesweeper.result.resources
+C:\stud\final4\Minesweeper\Minesweeper\obj\Debug\net6.0-windows\Minesweeper.RecordsForm.resources
